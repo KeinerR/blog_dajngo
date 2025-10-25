@@ -31,9 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Authentication',
     'Post',
     'bootstrap5',
     'allauth',
+    'widget_tweaks',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.agave',
@@ -164,6 +166,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -176,6 +179,14 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 
 ]
+
+# --- Configuración de correo para desarrollo ---
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = True
+
+
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -215,9 +226,19 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
    
 ]
-AUTH_USER_MODEL = 'Post.User'
+
+LOGIN_REDIRECT_URL = '/' # A dónde ir después de iniciar sesión
+ACCOUNT_LOGOUT_REDIRECT_URL = 'guest/parciales/inicio' # A dónde ir después de cerrar sesión
+AUTH_USER_MODEL = 'Authentication.User'
 WSGI_APPLICATION = 'my_blog.wsgi.application'
 
+# 5. OTRAS CONFIGURACIONES IMPORTANTES (Recomendadas)
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email' # Permite login con usuario o email
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_UNIQUE_EMAIL = True
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

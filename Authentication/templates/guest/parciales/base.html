@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load bootstrap5  %} 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title %}Blog Keiner {% endblock%} </title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+
+</head> 
+
+<body class="d-flex flex-column min-vh-100">
+    
+    {% include "guest/parciales/header.html" %}
+
+    <main class="container flex-grow-1"> 
+        {% block content%}
+        
+        hello data
+        
+        {%endblock%}
+    </main>
+
+    {% include "guest/parciales/footer.html" %}
+
+</body>
+</html>

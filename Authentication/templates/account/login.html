@@ -1,0 +1,60 @@
+{% extends "guest/parciales/base.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% load widget_tweaks %}
+
+{% block title %}Inicio de Sesión{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg">
+            <div class="card-body p-5">
+                <h2 class="card-title text-center mb-4 text-primary">Iniciar Sesión</h2>
+                
+                <!-- La vista de allauth ya pasa el formulario como 'form' -->
+                {% url 'account_login' as login_url %}
+                <form method="post" action="{{ login_url }}">
+                    {% csrf_token %}
+                    
+                    <!-- Simplemente iteramos sobre el objeto 'form' ya existente -->
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            
+                            <!-- Usamos widget_tweaks para aplicar clases de Bootstrap -->
+                            {{ field|add_class:"form-control" }} 
+                            
+                            {% for error in field.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+
+                    <!-- Checkbox de "Recordarme" -->
+                    <div class="form-check mb-3">
+                        {{ remember_me }}
+                        <label class="form-check-label" for="{{ remember_me.id_for_label }}">
+                            Recordarme
+                        </label>
+                    </div>
+
+
+                    <button class="btn btn-primary w-100 mb-3" type="submit">Entrar</button>
+
+                    <!-- Enlace a Olvidé Contraseña -->
+                    <div class="text-center">
+                        <a href="{% url 'account_reset_password' %}" class="text-muted small">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
