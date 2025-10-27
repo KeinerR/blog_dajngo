@@ -3,6 +3,6 @@ from django.http import HttpResponse,HttpResponseNotFound
 # Create your views here.
 
 def home(request):
-    template_name = 'guest/parciales/home.html'
+    template_name = 'account/home.html'
     
     return render(request,template_name)

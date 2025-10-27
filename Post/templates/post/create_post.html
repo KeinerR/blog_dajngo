@@ -1,0 +1,71 @@
+{% extends "guest/parciales/base.html" %}
+{% load static %}
+{% block title %}Crear Post{% endblock %}
+
+{% block content %}
+  {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+            <div 
+                class="alert alert-{{ message.tags }} alert-dismissible fade show" 
+                role="alert"
+            >
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="container mt-4">
+        <div class="card">
+            <h2 class="card-header">Crear un nuevo post</h2>
+            <div class="card-body">
+
+            
+                <form action="{% url 'post:post_store' %}" method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form.as_p }}  <!-- Muestra los campos title, content, published_date, slug -->
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary mt-2" onclick="window.history.back()">Volver</button>
+                        <button type="submit" class="btn btn-primary mt-2"> Guardar</button>
+                    </div>
+                </form>
+            </div> 
+        </div> 
+
+    </div>
+
+    <style>
+      .alert {
+            transition: opacity 0.6s ease-out;
+        }
+      ul.errorlist {
+        color: #dc3545; /* Color rojo Bootstrap */
+        list-style: none;
+        margin: 4px 0 0 0;
+        padding: 0;
+        font-size: 0.875rem; /* más pequeño */
+      }
+      ul.errorlist li::before {
+        content: "⚠ "; /* opcional: ícono visual */
+      }
+    </style>
+
+
+
+
+    <script>
+        // Esperar a que cargue el DOM
+        document.addEventListener("DOMContentLoaded", function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach((alert) => {
+            setTimeout(() => {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }, 4000); // 4 segundos antes de desaparecer
+            });
+        });
+    </script>
+
+
+{% endblock %}

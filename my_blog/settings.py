@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -206,7 +208,7 @@ ROOT_URLCONF = 'my_blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -227,8 +229,8 @@ AUTHENTICATION_BACKENDS = [
    
 ]
 
-LOGIN_REDIRECT_URL = '/' # A dónde ir después de iniciar sesión
-ACCOUNT_LOGOUT_REDIRECT_URL = 'guest/parciales/inicio' # A dónde ir después de cerrar sesión
+LOGIN_REDIRECT_URL = reverse_lazy('post:post_list') # A dónde ir después de iniciar sesión
+ACCOUNT_LOGOUT_REDIRECT_URL = 'authentication:home-page' # A dónde ir después de cerrar sesión
 AUTH_USER_MODEL = 'Authentication.User'
 WSGI_APPLICATION = 'my_blog.wsgi.application'
 

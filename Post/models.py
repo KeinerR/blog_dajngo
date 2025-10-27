@@ -50,7 +50,7 @@ class Post(SoftDeleteModel):
     author = models.ForeignKey( settings.AUTH_USER_MODEL,on_delete=models.CASCADE ,related_name='post')
     published_date = models.DateTimeField(default=timezone.now)
     slug = models.SlugField(max_length=255, unique=True)
-    files = GenericRelation(File, related_query_name='post_files') # 🚨 Usar cadena 'File' o 'app_name.File'    
+    files = GenericRelation(File, related_query_name='post_files') #  Usar cadena 'File' o 'app_name.File'    
     
     class Meta:
         db_table = 'Post'
